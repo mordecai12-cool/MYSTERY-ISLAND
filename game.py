@@ -19,8 +19,8 @@ def move(player, direction):
     player["energy"] = player["energy"] - 1
     return "You walk to " + player["location"] + "."
 
-# player = new_game("Ada")
-# print(move(player, "north"))
-# print(player)
-# print(move(player, "east"))
-# print(player)
+def pick_up(player, item):
+    if item in player["inventory"]:
+        return "You already have the " + item + "."
+    player["inventory"].append(item)
+    return "You pick up the " + item + "."
