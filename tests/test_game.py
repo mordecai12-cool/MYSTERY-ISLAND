@@ -33,3 +33,10 @@ class TestMove(unittest.TestCase):
         pick_up(player, "rope")
         # use assertTrue on can_cross_bridge(player)
         self.assertTrue(can_cross_bridge(player))
+
+    def test_move_to_bridge_blocked_without_rope(self):
+        player = new_game("Ada")
+        player["location"] = "Cave"
+        move(player, "north")
+        # assertEqual: location should still be ???
+        # assertEqual: energy should still be ???

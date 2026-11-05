@@ -9,12 +9,17 @@ def new_game(name):
 MAP = {
     "Beach": {"north": "Jungle"},
     "Jungle": {"south": "Beach", "north": "Cave"},
-    "Cave": {"south": "Jungle"},
+    "Cave": {"south": "Jungle", "north": "Old Bridge"},
+    "Old Bridge": {"south": "Cave", "north": "Lighthouse"},
+    "Lighthouse": {"south": "Old Bridge"},
 }
 def move(player, direction):
     exits = MAP[player["location"]]
     if direction not in exits:
         return "You can't go that way."
+    destination = exits[direction]
+    if destination == "Old Bridge" and not can_cross_bridge(player):
+        return "The bridge is too dangerous without a rope."
     player["location"] = exits[direction]
     player["energy"] = player["energy"] - 1
     return "You walk to " + player["location"] + "."
