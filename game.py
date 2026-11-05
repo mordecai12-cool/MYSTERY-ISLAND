@@ -24,3 +24,6 @@ def pick_up(player, item):
         return "You already have the " + item + "."
     player["inventory"].append(item)
     return "You pick up the " + item + "."
+
+def can_cross_bridge(player):
+    return "rope" in player["inventory"]
