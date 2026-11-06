@@ -32,3 +32,6 @@ def pick_up(player, item):
 
 def can_cross_bridge(player):
     return "rope" in player["inventory"]
+
+def can_light_beacon(player):
+    return player["location"] == "Lighthouse" and "lantern" in player["inventory"]
