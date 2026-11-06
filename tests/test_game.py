@@ -49,3 +49,17 @@ class TestMove(unittest.TestCase):
         player["location"] = "Lighthouse"
         pick_up(player, "lantern")
         self.assertTrue(can_light_beacon(player))
+
+    def test_energy_exhaustion_causes_loss(self):
+        player = new_game("Ada")
+        player["energy"] = 1
+        move(player, "north")
+        self.assertEqual(player["energy"], 0)
+        self.assertTrue(player["game_over"])
+
+    def test_no_moves_after_game_over(self):
+        player = new_game("Ada")
+        player["game_over"] = True
+        move(player, "north")
+        self.assertEqual(player["location"], "Beach")
+        self.assertEqual(player["energy"], 5)

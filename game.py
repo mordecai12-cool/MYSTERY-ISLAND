@@ -4,6 +4,8 @@ def new_game(name):
         "location": "Beach",
         "energy": 5,
         "inventory": [],
+        "game_over": False,
+        "won": False,
     }
 
 MAP = {
@@ -14,6 +16,8 @@ MAP = {
     "Lighthouse": {"south": "Old Bridge"},
 }
 def move(player, direction):
+    if player["game_over"]:
+        return "The game is over."
     exits = MAP[player["location"]]
     if direction not in exits:
         return "You can't go that way."
@@ -22,6 +26,9 @@ def move(player, direction):
         return "The bridge is too dangerous without a rope."
     player["location"] = exits[direction]
     player["energy"] = player["energy"] - 1
+    if player["energy"] == 0:
+        player["game_over"] = True
+        return "You collapse from exhaustion. Game over."
     return "You walk to " + player["location"] + "."
 
 def pick_up(player, item):
