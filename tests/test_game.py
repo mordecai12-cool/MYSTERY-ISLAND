@@ -19,6 +19,7 @@ class TestMove(unittest.TestCase):
 
     def test_rope_collected_once(self):
         player = new_game("Ada")
+        player["location"] = "Cave"
         pick_up(player, "rope")
         pick_up(player, "rope")
         self.assertEqual(player["inventory"], ["rope"])
@@ -29,6 +30,7 @@ class TestMove(unittest.TestCase):
 
     def test_bridge_open_with_rope(self):
         player = new_game("Ada")
+        player["location"] = "Cave"
         pick_up(player, "rope")
         self.assertTrue(can_cross_bridge(player))
 
@@ -46,8 +48,8 @@ class TestMove(unittest.TestCase):
 
     def test_beacon_lights_with_lantern(self):
         player = new_game("Ada")
-        player["location"] = "Lighthouse"
         pick_up(player, "lantern")
+        player["location"] = "Lighthouse"
         self.assertTrue(can_light_beacon(player))
 
     def test_energy_exhaustion_causes_loss(self):
@@ -66,8 +68,8 @@ class TestMove(unittest.TestCase):
 
     def test_win_at_lighthouse_with_lantern(self):
         player = new_game("Ada")
-        player["location"] = "Lighthouse"
         pick_up(player, "lantern")
+        player["location"] = "Lighthouse"
         light_beacon(player)
         self.assertTrue(player["won"])
         self.assertTrue(player["game_over"])

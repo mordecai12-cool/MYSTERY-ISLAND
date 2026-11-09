@@ -15,6 +15,12 @@ MAP = {
     "Old Bridge": {"south": "Cave", "north": "Lighthouse"},
     "Lighthouse": {"south": "Old Bridge"},
 }
+
+ITEMS = {
+    "lantern": "Beach",
+    "rope": "Cave",
+}
+
 def move(player, direction):
     if player["game_over"]:
         return "The game is over."
@@ -32,8 +38,12 @@ def move(player, direction):
     return "You walk to " + player["location"] + "."
 
 def pick_up(player, item):
+    if item not in ITEMS:
+        return "There is no " + item + " here."
     if item in player["inventory"]:
         return "You already have the " + item + "."
+    if ITEMS[item] != player["location"]:
+        return "There is no " + item + " here."
     player["inventory"].append(item)
     return "You pick up the " + item + "."
 
