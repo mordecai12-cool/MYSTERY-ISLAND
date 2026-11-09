@@ -1,7 +1,7 @@
 import unittest
 import sys
 sys.path.insert(0, ".")
-from game import new_game, move, pick_up, can_cross_bridge, can_light_beacon
+from game import new_game, move, pick_up, can_cross_bridge, can_light_beacon, light_beacon
 
 
 class TestMove(unittest.TestCase):
@@ -63,3 +63,18 @@ class TestMove(unittest.TestCase):
         move(player, "north")
         self.assertEqual(player["location"], "Beach")
         self.assertEqual(player["energy"], 5)
+
+    def test_win_at_lighthouse_with_lantern(self):
+        player = new_game("Ada")
+        player["location"] = "Lighthouse"
+        pick_up(player, "lantern")
+        light_beacon(player)
+        self.assertTrue(player["won"])
+        self.assertTrue(player["game_over"])
+
+    def test_no_win_at_beach_with_lantern(self):
+        player = new_game("Ada")
+        pick_up(player, "lantern")
+        light_beacon(player)
+        self.assertFalse(player["won"])
+        self.assertFalse(player["game_over"])

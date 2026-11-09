@@ -42,3 +42,12 @@ def can_cross_bridge(player):
 
 def can_light_beacon(player):
     return player["location"] == "Lighthouse" and "lantern" in player["inventory"]
+
+def light_beacon(player):
+    if player["game_over"]:
+        return "The game is over."
+    if not can_light_beacon(player):
+        return "You need the lantern and must be at the Lighthouse."
+    player["game_over"] = True
+    player["won"] = True
+    return "The rescue boat arrives."
