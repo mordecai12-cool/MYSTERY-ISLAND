@@ -80,3 +80,18 @@ class TestMove(unittest.TestCase):
         light_beacon(player)
         self.assertFalse(player["won"])
         self.assertFalse(player["game_over"])
+
+    def test_new_game_resets_state(self):
+        player = new_game("Ada")
+        pick_up(player, "lantern")
+        move(player, "north")
+        player = new_game("Ada")
+        self.assertEqual(player["location"], "Beach")
+        self.assertEqual(player["energy"], 5)
+        self.assertEqual(player["inventory"], [])
+
+    def test_unknown_item_changes_nothing(self):
+        player = new_game("Ada")
+        pick_up(player, "banana")
+        self.assertEqual(player["inventory"], [])
+        self.assertEqual(player["energy"], 5)
